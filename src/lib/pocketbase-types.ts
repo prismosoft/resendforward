@@ -152,6 +152,7 @@ export type ForwardingRulesRecord = {
 	enabled?: boolean
 	forward_to_email: string
 	id: string
+	reply_to_email?: string
 	rule_email: string
 	rule_name?: string
 	send_from_email: string
