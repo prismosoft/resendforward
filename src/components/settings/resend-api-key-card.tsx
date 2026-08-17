@@ -2,8 +2,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useState } from "react";
-import { Loader2, Key, CheckCircle2, Trash2 } from "lucide-react";
+import { Loader2, Key, CheckCircle2, Trash2, Info } from "lucide-react";
 import { toast } from "sonner";
 import { useGetResendApiKey } from "@/lib/api/queries";
 import { useSetResendAPIkey, useDeleteResendAPIkey } from "@/lib/api/mutations";
@@ -28,7 +29,7 @@ export function ResendApiKeyCard() {
       setNewApiKey("");
       toast.success("Resend API key updated successfully");
     } catch (error) {
-      toast.error("Failed to update API key");
+      toast.error("Invalid Resend API key. Make sure it has Full access and belongs to the receiving domain's account/team.");
     }
   };
 
@@ -51,13 +52,19 @@ export function ResendApiKeyCard() {
           <CardTitle>Resend API Key</CardTitle>
         </div>
         <CardDescription>
-          Your Resend API key is used to send forwarded emails. Get your API key from{" "}
+          Your Resend API key is used to retrieve incoming email content and send forwarded emails. Get your API key from{" "}
           <a href="https://resend.com/api-keys" target="_blank" rel="noopener noreferrer" className="underline">
             resend.com/api-keys
           </a>
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
+        <Alert className="border-primary">
+          <Info className="h-4 w-4 stroke-primary" />
+          <AlertDescription>
+            Use a <strong>Full access</strong> API key from the same Resend account/team that owns your receiving domain. Sending-only keys cannot retrieve received email content.
+          </AlertDescription>
+        </Alert>
         {apiKey ? (
           <div className="space-y-4">
             <div className="flex items-center gap-2 p-4 bg-muted rounded-lg">
