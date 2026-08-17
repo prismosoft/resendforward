@@ -28,13 +28,14 @@ export function CreateRule({ isConfigured }: CreateRuleDialogProps) {
     ruleEmail: "",
     toEmail: "",
     fromEmail: "",
+    replyToEmail: "",
   });
 
   const isButtonDisabled = !isConfigured;
 
   const handleCreate = async () => {
     if (!formData.ruleName || !formData.ruleEmail || !formData.toEmail || !formData.fromEmail) {
-      toast.error("All fields are required");
+      toast.error("All fields are required except Reply-To");
       return;
     }
 
@@ -44,9 +45,10 @@ export function CreateRule({ isConfigured }: CreateRuleDialogProps) {
         ruleEmail: formData.ruleEmail,
         toEmail: formData.toEmail,
         fromEmail: formData.fromEmail,
+        replyToEmail: formData.replyToEmail,
       });
       setIsOpen(false);
-      setFormData({ ruleName: "", ruleEmail: "", toEmail: "", fromEmail: "" });
+      setFormData({ ruleName: "", ruleEmail: "", toEmail: "", fromEmail: "", replyToEmail: "" });
       toast.success("Forwarding rule created successfully");
     } catch (error) {
       toast.error("Failed to create forwarding rule");
@@ -125,6 +127,22 @@ export function CreateRule({ isConfigured }: CreateRuleDialogProps) {
             />
             <p className="text-xs text-muted-foreground">
               Sender name and verified address, for example: VidBlitz &lt;sales@vidblitz.ai&gt;
+            </p>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="reply-to-email" className="text-primary">
+              Reply-To <span className="text-muted-foreground font-normal">(optional)</span>
+            </Label>
+            <Input
+              id="reply-to-email"
+              className="text-secondary"
+              type="email"
+              placeholder="replies@yourdomain.com"
+              value={formData.replyToEmail}
+              onChange={(e) => setFormData({ ...formData, replyToEmail: e.target.value })}
+            />
+            <p className="text-xs text-muted-foreground">
+              Replies will go here. Leave blank to reply to the original sender.
             </p>
           </div>
         </div>
