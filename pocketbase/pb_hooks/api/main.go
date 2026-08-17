@@ -240,6 +240,10 @@ func handleEmailReceived(e *core.RequestEvent, bodyBytes []byte) error {
 
 	forwardToEmail := rule.GetString("forward_to_email")
 	sendFromEmail := rule.GetString("send_from_email")
+	replyToEmail := rule.GetString("reply_to_email")
+	if replyToEmail == "" {
+		replyToEmail = email.From
+	}
 
 	params := &resend.SendEmailRequest{
 		From:        sendFromEmail,
@@ -248,7 +252,7 @@ func handleEmailReceived(e *core.RequestEvent, bodyBytes []byte) error {
 		Html:        email.Html,
 		Text:        email.Text,
 		Attachments: emailAttachments,
-		ReplyTo:     email.From,
+		ReplyTo:     replyToEmail,
 		Bcc:         email.Bcc,
 		Cc:          email.Cc,
 	}
