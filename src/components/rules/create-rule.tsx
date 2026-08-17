@@ -118,13 +118,13 @@ export function CreateRule({ isConfigured }: CreateRuleDialogProps) {
             <Input
               id="from-email"
               className="text-secondary"
-              type="email"
-              placeholder="noreply@yourdomain.com"
+              type="text"
+              placeholder="VidBlitz <sales@vidblitz.ai>"
               value={formData.fromEmail}
               onChange={(e) => setFormData({ ...formData, fromEmail: e.target.value })}
             />
             <p className="text-xs text-muted-foreground">
-              The sender address for the forwarded email (must be verified in Resend)
+              Sender name and verified address, for example: VidBlitz &lt;sales@vidblitz.ai&gt;
             </p>
           </div>
         </div>
