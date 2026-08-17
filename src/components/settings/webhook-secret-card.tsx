@@ -14,6 +14,7 @@ export function WebhookSecretCard() {
   const setWebhookSecret = useSetResendWebhookSecret();
   const deleteWebhookSecret = useDeleteResendWebhookSecret();
   const [newWebhookSecret, setNewWebhookSecret] = useState("");
+  const webhookUrl = `${window.location.origin}/api/webhooks/resend`;
 
   const handleSetWebhookSecret = async () => {
     if (!newWebhookSecret.trim()) {
@@ -66,7 +67,7 @@ export function WebhookSecretCard() {
               <div>
                 <p className="font-medium mb-1">Webhook endpoint URL:</p>
                 <code className="px-2 py-1 bg-muted rounded text-sm block w-fit">
-                  https://www.resendforward.com/api/webhooks/resend
+                  {webhookUrl}
                 </code>
               </div>
               <div>
