@@ -19,13 +19,14 @@ export interface EventLogFilters {
     sort?: string;
 }
 
-export async function createNewForwardingRule(rule_name: string, rule_email: string, forward_to_email: string, send_from_email: string) {
+export async function createNewForwardingRule(rule_name: string, rule_email: string, forward_to_email: string, send_from_email: string, reply_to_email?: string) {
     const data = {
         user: getUserId(),
         rule_name,
         rule_email,
         forward_to_email,
         send_from_email,
+        reply_to_email: reply_to_email || "",
         enabled: true
     }
 
