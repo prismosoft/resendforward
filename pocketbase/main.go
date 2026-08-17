@@ -21,22 +21,19 @@ import (
 func main() {
 	app := pocketbase.New()
 
-	if err := godotenv.Load(); err != nil {
-		log.Fatal("Error loading .env file")
+	if err := godotenv.Load(); err != nil && !os.IsNotExist(err) {
+		log.Fatal("Error loading .env file: ", err)
 	}
 
 	if err := api.Init(app); err != nil {
 		log.Fatal("Failed to initialize API hooks: ", err)
 	}
-
 	if err := secrets.Init(app); err != nil {
 		log.Fatal("Failed to initialize Resend secrets hooks: ", err)
 	}
-
 	if err := crons.Init(app); err != nil {
 		log.Fatal("Failed to initialize cron jobs: ", err)
 	}
-
 	if err := rules.Init(app); err != nil {
 		log.Fatal("Failed to initialize rules hooks: ", err)
 	}

@@ -1,0 +1,14 @@
+.git
+.github
+.DS_Store
+.env
+node_modules
+dist
+dist-ssr
+*.log
+tsconfig.tsbuildinfo
+pocketbase/.env
+pocketbase/pb_data
+pocketbase/pb_public
+pocketbase/server
+pocketbase/output
