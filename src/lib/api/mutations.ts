@@ -7,7 +7,7 @@ export function useCreateForwardingRule() {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: ({ ruleName, ruleEmail, toEmail, fromEmail }: { ruleName: string, ruleEmail: string, toEmail: string, fromEmail: string }) => createNewForwardingRule(ruleName, ruleEmail, toEmail, fromEmail),
+        mutationFn: ({ ruleName, ruleEmail, toEmail, fromEmail, replyToEmail }: { ruleName: string, ruleEmail: string, toEmail: string, fromEmail: string, replyToEmail?: string }) => createNewForwardingRule(ruleName, ruleEmail, toEmail, fromEmail, replyToEmail),
         onError: handleError,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["forwardingRules"] });
