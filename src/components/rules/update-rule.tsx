@@ -29,6 +29,7 @@ export function UpdateRule({ isOpen, onOpenChange, rule, onUpdateSuccess }: Upda
     ruleEmail: "",
     toEmail: "",
     fromEmail: "",
+    replyToEmail: "",
   });
 
   useEffect(() => {
@@ -38,6 +39,7 @@ export function UpdateRule({ isOpen, onOpenChange, rule, onUpdateSuccess }: Upda
         ruleEmail: rule.rule_email,
         toEmail: rule.forward_to_email,
         fromEmail: rule.send_from_email,
+        replyToEmail: rule.reply_to_email || "",
       });
     }
   }, [rule]);
@@ -46,7 +48,7 @@ export function UpdateRule({ isOpen, onOpenChange, rule, onUpdateSuccess }: Upda
     if (!rule) return;
 
     if (!formData.ruleName || !formData.ruleEmail || !formData.toEmail || !formData.fromEmail) {
-      toast.error("All fields are required");
+      toast.error("All fields are required except Reply-To");
       return;
     }
 
@@ -58,6 +60,7 @@ export function UpdateRule({ isOpen, onOpenChange, rule, onUpdateSuccess }: Upda
           rule_email: formData.ruleEmail,
           forward_to_email: formData.toEmail,
           send_from_email: formData.fromEmail,
+          reply_to_email: formData.replyToEmail,
         },
       });
       onOpenChange(false);
@@ -136,6 +139,22 @@ export function UpdateRule({ isOpen, onOpenChange, rule, onUpdateSuccess }: Upda
             />
             <p className="text-xs text-muted-foreground">
               Sender name and verified address, for example: VidBlitz &lt;sales@vidblitz.ai&gt;
+            </p>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="reply-to-email" className="text-primary">
+              Reply-To <span className="text-muted-foreground font-normal">(optional)</span>
+            </Label>
+            <Input
+              id="reply-to-email"
+              className="text-secondary"
+              type="email"
+              placeholder="replies@yourdomain.com"
+              value={formData.replyToEmail}
+              onChange={(e) => setFormData({ ...formData, replyToEmail: e.target.value })}
+            />
+            <p className="text-xs text-muted-foreground">
+              Replies will go here. Leave blank to reply to the original sender.
             </p>
           </div>
         </div>
