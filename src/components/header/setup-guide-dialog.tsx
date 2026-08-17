@@ -11,6 +11,8 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Info, ExternalLink } from "lucide-react";
 
 export function SetupGuideDialog() {
+  const webhookUrl = `${window.location.origin}/api/webhooks/resend`;
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -82,7 +84,7 @@ export function SetupGuideDialog() {
                     <div>
                       <p className="font-medium mb-1">Webhook endpoint URL:</p>
                       <code className="px-2 py-1 bg-muted rounded text-sm block w-fit">
-                        https://www.resendforward.com/api/webhooks/resend
+                        {webhookUrl}
                       </code>
                     </div>
                     <div>
